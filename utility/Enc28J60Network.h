@@ -82,6 +82,7 @@ public:
   static memaddress blockSize(memhandle handle);
   static void sendPacket(memhandle handle);
   static uint16_t readPacket(memhandle handle, memaddress position, uint8_t* buffer, uint16_t len);
+  static uint16_t skipPacket(memhandle handle, memaddress position, uint16_t len);
   static uint16_t writePacket(memhandle handle, memaddress position, uint8_t* buffer, uint16_t len);
   static void copyPacket(memhandle dest, memaddress dest_pos, memhandle src, memaddress src_pos, uint16_t len);
   static uint16_t chksum(uint16_t sum, memhandle handle, memaddress pos, uint16_t len);

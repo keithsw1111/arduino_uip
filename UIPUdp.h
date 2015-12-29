@@ -100,6 +100,8 @@ public:
     return read((unsigned char*) buffer, len);
   }
   ;
+  // skip over bytes in a packet without reading them
+  size_t skip(size_t len);
   // Return the next byte from the current packet without moving on to the next byte
   int
   peek();

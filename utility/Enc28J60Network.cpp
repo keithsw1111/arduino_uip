@@ -280,6 +280,13 @@ Enc28J60Network::readPacket(memhandle handle, memaddress position, uint8_t* buff
 }
 
 uint16_t
+Enc28J60Network::skipPacket(memhandle handle, memaddress position, uint16_t len)
+{
+  len = setReadPtr(handle, position, len);
+  return len;
+}
+
+uint16_t
 Enc28J60Network::writePacket(memhandle handle, memaddress position, uint8_t* buffer, uint16_t len)
 {
   memblock *packet = &blocks[handle];

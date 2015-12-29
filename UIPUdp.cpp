@@ -276,6 +276,28 @@ UIPUDP::read(unsigned char* buffer, size_t len)
   return 0;
 }
 
+// skip over bytes without actually reading them. Returns actual bytes skipped
+size_t UIPUDP::skip(size_t len)
+{
+  UIPEthernetClass::tick();
+  if (appdata.packet_in != NOBLOCK)
+  {
+    memaddress skip = Enc28J60Network::skipPacket(appdata.packet_in,0,len);
+    if (skip == Enc28J60Network::blockSize(appdata.packet_in))
+    {
+      Enc28J60Network::freeBlock(appdata.packet_in);
+      appdata.packet_in = NOBLOCK;
+    }
+    else
+	{
+      Enc28J60Network::resizeBlock(appdata.packet_in,skip);
+	}
+
+    return skip;
+  }
+  return 0;
+}
+
 // Return the next byte from the current packet without moving on to the next byte
 int
 UIPUDP::peek()
